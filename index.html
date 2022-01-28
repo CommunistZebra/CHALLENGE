@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Alura Challenge Decripter</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	<header>
+		<a href="#" class = "logo"> Alura </a>
+		<ul>
+			<li> <a href="#" class="active"> Home </a></li>
+			<li> <a href="#"> About </a></li>
+			<li> <a href="#"> Work </a></li>
+			<li> <a href="#"> Contact </a></li>
+
+		</ul>
+	</header>
+	<section>
+		<img src= "background.jpg" id="computadora">
+		<img src= "stars.png" id="stars">
+		<h2 id="text">Encriptador</h2>
+		<a href="#sec" id="btn">Inicio</a>
+
+	</section>
+	<div class="sec" id="sec">
+		<h2>¿Desea encriptar o descifrar un mensaje?</h2>
+		<p>
+			Este programa permite utilizar 
+			Todo esto es texto dummy, no me interesa lo que diga siempre y cuando demuestre ser de utilidad al estorbar y demostrar la magia que tiene el relleno en texto, que no tiene nada que ver con lo que estoy escribiendo pero sirve para llenar más espacio y hacerte perder el tiempo
+			Todo esto es texto dummy, no me interesa lo que diga siempre y cuando demuestre ser de utilidad al estorbar y demostrar la magia que tiene el relleno en texto, que no tiene nada que ver con lo que estoy escribiendo pero sirve para llenar más espacio y hacerte perder el tiempo
+			Todo esto es texto dummy, no me interesa lo que diga siempre y cuando demuestre ser de utilidad al estorbar y demostrar la magia que tiene el relleno en texto, que no tiene nada que ver con lo que estoy escribiendo pero <br><br>sirve para llenar más espacio y hacerte perder el tiempo <br><br>
+
+
+			Todo esto es texto dummy, no me interesa lo que diga siempre y cuando demuestre ser de utilidad al estorbar y demostrar la magia que tiene el relleno en texto, que no tiene nada que ver con lo que estoy escribiendo pero sirve para llenar más espacio y hacerte perder el tiempo
+		</p>
+
+			<form>
+				<label for="encript"><br>Ingrese su texto <br></label>
+				<input type="text" id="encript" name="encript" value="Aquí va tu texto" >
+
+			</form>
+			<button class = "button buttonhoverable" id="botonEncriptar">¡Encriptar!
+			</button>
+			<button class = "button buttonhoverable" id="botonDesencriptar">¡Resolver Mensaje!
+			</button><br><br>
+			<label for="result">El resultado es <br> </label>
+			<textarea id="textoresultado">
+			</textarea>
+	</div>
+
+	<script>
+
+	/* Reglas de encriptación: 
+	"e" es convertido para "enter" 
+	"i" es convertido para "imes"
+	"a" es convertido para "ai"
+	"o" es convertido para "ober"
+	"u" es convertido para "ufat"
+	Solo letras minusculas
+	No se permite acentuación de palabras 
+	*/
+
+	/* Reglas de desencriptación: 
+	"enter" es convertido para "e" 
+	"imes" es convertido para "i"
+	"ai" es convertido para "a"
+	"ober" es convertido para "o"
+	"ufat" es convertido para "u"
+	Solo letras minusculas
+	No se permite acentuación de palabras   
+	*/
+		let stars = document.getElementById('stars');
+		let computadora = document.getElementById('computadora');
+		let text = document.getElementById('text');
+		let btn = document.getElementById('btn');
+		let header = document.querySelector('header');
+		window.addEventListener('scroll', function(){
+			let value = window.scrollY;
+			stars.style.left = value*0.25 + 'px';
+			text.style.marginRight = value*4 + 'px';
+			btn.style.marginTop = value * 1.5 + 'px'
+			header.style.top = value * 0.5 + 'px';
+			computadora.style.top = value*0.25 + 'px';
+		})
+
+		function encriptar() {
+			var inputa = document.getElementById("encript").value;
+			var textbox = document.getElementById("textoresultado")
+			console.log(inputa);
+			var matrix = [];
+			
+			
+			for(i=0; i<=inputa.length ; i++){
+				matrix[i] = inputa.charAt(i);
+				switch(matrix[i]){
+					case 'a':
+						matrix[i] = 'ai';
+						break;
+					case 'e':
+						matrix[i]= 'enter';
+						break;
+					case 'i':
+						matrix[i] = 'imes';
+						break;
+					case 'o':
+						matrix[i] = 'ober';
+						break;
+					case 'u':
+						matrix[i] = 'ufat';
+					default:
+						console.log("vacio");
+				}
+
+			}
+			console.log(matrix);
+			let texto = matrix.join('')
+			console.log(texto);
+			textbox.value = texto;
+
+
+
+		}
+
+		function desencriptar(argument) {
+			var inputb = document.getElementById("encript").value;
+			var textbox = document.getElementById("textoresultado");
+			console.log(inputb);
+			var matrix =[];
+			var matrixresuelta = [];
+			var cont = 0;
+			for(i=0; i<=inputb.length; i++){
+				matrix[i] = inputb.charAt(i);
+				switch(matrix[i]){
+					case 'a': //ai
+						if(matrix[i])
+						matrixresuelta[cont] = 'a'
+						cont++;
+						i+=1;
+						break;
+					case 'e': //enter
+						matrixresuelta[cont] = 'e'
+						cont++;
+						i+=4;
+						break;
+					case 'i': //imes
+						matrixresuelta[cont] = 'i'
+						cont++;
+						i+=3;
+						break;
+					case 'o': //ober
+						matrixresuelta[cont] = 'o'
+						cont++;
+						i+=3;
+						break;
+					case 'u': //ufat
+						matrixresuelta[cont] = 'u'
+						cont++;
+						i+=3;
+					default:
+						matrixresuelta[cont] = matrix[i];
+						cont++;
+				}
+			}
+			console.log(matrixresuelta);
+			let texto = matrixresuelta.join('');
+			textbox.value= texto;
+
+		}
+
+		var botonEncriptar = document.getElementById('botonEncriptar')
+
+		botonEncriptar.onclick = encriptar;
+		var botonDesencriptar = document.getElementById('botonDesencriptar')
+		botonDesencriptar.onclick = desencriptar
+	</script>
+</body>
+</html>
